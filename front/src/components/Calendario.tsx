@@ -1,7 +1,10 @@
-import { useMemo } from "react";
-import useCalendario from "../useCalendario"
+import { useMemo, useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { listarCompromissos } from "../banco-de-dados/compromissos";
+
+import { listarCompromissos } from "../api/compromissos";
+import type { Compromisso } from "../tipos/compromissos";
+
+import useCalendario from "../useCalendario"
 
 interface CalendarioProps {
   locale?: string;
@@ -9,21 +12,31 @@ interface CalendarioProps {
   dataSelecionada?: Date
 }
 
-const compromissos = listarCompromissos()
-    
-
-function temCompromisso(data: Date): boolean {
-    return compromissos
-    .filter(c => 
-        c.data.getDate() === data.getDate() && 
-        c.data.getMonth() === data.getMonth() && 
-        c.data.getFullYear() === data.getFullYear()
-    ).length > 0
-}
-
-
 export default function Calendario({ locale = navigator.language, onDiaSelecionado, dataSelecionada = new Date() }: CalendarioProps) {
     const {ano, mes, diasSemana, celulas, inicioMes, avancarMes, voltarMes} = useCalendario(new Date(), locale);
+    const [compromissos, setCompromissos] = useState<Compromisso[]>([]);
+
+    useEffect(() => {
+        listarCompromissos()
+        .then((data) => setCompromissos(data))
+        .catch((err) => {
+            console.error("Erro ao carregar compromissos:", err);
+            setCompromissos([]); // garante que nunca será undefined
+        });
+    }, []);
+
+    function temCompromisso(data: Date): boolean {
+        return compromissos.some(c => {
+            const dataC = new Date(c.data);
+            return (
+                dataC.getDate() === data.getDate() &&
+                dataC.getMonth() === data.getMonth() &&
+                dataC.getFullYear() === data.getFullYear()
+            );
+        });
+    }
+
+
 
     const formatadorMes = useMemo(() => {
         return new Intl.DateTimeFormat(locale, {month: 'long', year: 'numeric'})

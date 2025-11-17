@@ -1,12 +1,25 @@
-// src/componentes/Compromissos.tsx
-import { listarCompromissos } from "../banco-de-dados/compromissos";
+import { useEffect, useState } from "react";
+
+import { listarCompromissos } from "../api/compromissos";
+import type { Compromisso } from "../tipos/compromissos";
 
 interface CompromissosProps {
     dataSelecionada?: Date;
 }
 
 export default function Compromissos({dataSelecionada = new Date()}: CompromissosProps) {
-  const compromissos = listarCompromissos().filter(c => {
+  const [compromissos, setCompromissos] = useState<Compromisso[]>([]);
+
+  useEffect(() => {
+    listarCompromissos()
+      .then((data) => setCompromissos(data))
+      .catch((err) => {
+        console.error("Erro ao carregar compromissos:", err);
+        setCompromissos([]); // garante que nunca será undefined
+      });
+  }, []);
+
+  const compromissosDoDia = compromissos.filter(c => {
     const dataCompromisso = new Date(c.data);
     return (
       dataCompromisso.getDate() === dataSelecionada.getDate() &&
@@ -20,12 +33,12 @@ export default function Compromissos({dataSelecionada = new Date()}: Compromisso
       <div className="flex items-center justify-between p-4 border-b border-gray-200 bg-white sticky top-0 z-10">
         <h2 className="text-lg font-semibold">📅 Meus Compromissos</h2>
         <span className="text-sm text-gray-500">
-          {compromissos.length} compromisso(s)
+          {compromissosDoDia.length} compromisso(s)
         </span>
       </div>
 
       <div className="flex-1 overflow-y-auto p-4 space-y-3 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent hover:scrollbar-thumb-gray-400">
-        {compromissos.map((compromisso) => (
+        {compromissosDoDia.map((compromisso) => (
           <div
             key={compromisso.id}
             className="w-full rounded-2xl border border-gray-200 bg-white shadow-sm p-4 hover:shadow-md transition cursor-pointer"
