@@ -10,7 +10,7 @@ function App() {
     <>
      <div className='max-w-md mx-auto'>
         <div className="h-screen flex flex-col">
-        <div className="h-[50%] border-b border-gray-200 overflow-hidden">
+        <div className="h-[60%] border-b border-gray-200 overflow-hidden">
             <Calendario
               onDiaSelecionado= {setDataSelecionada} 
               dataSelecionada = {dataSelecionada}
