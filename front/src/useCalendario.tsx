@@ -40,7 +40,7 @@ function useCalendario(date: Date, locale: string) {
         }
 
         // dias do mês atual
-        for (let i = 1; i < diasNoMes; i++) {
+        for (let i = 1; i <= diasNoMes; i++) {
             celulas.push({
                 data: new Date(ano, mes, i),
                 mesCorrente: true

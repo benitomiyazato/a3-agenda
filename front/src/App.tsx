@@ -15,7 +15,7 @@ function App() {
           <h1 className="text-2xl font-bold text-center text-gray-800 mb-4">
             Agenda
           </h1>
-          <div className="h-[60%] border-b border-gray-200 overflow-hidden">
+          <div className="h-[70%] border-b border-gray-200 overflow-hidden">
             <Calendario
               onDiaSelecionado={setDataSelecionada}
               dataSelecionada={dataSelecionada}
