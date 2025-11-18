@@ -2,33 +2,48 @@ let compromissos = [
   {
     id: 0,
     titulo: 'Reunião de Projeto',
-    descricao: 'Reunião para desenvolvimento do projeto A3',
+    descricao: 'Reunião para desenvolvimento do projeto empresa',
     data: new Date('2025-11-12T10:00:00'),
+    categoria: "Trabalho",
+    local: "",
+    link: "zoom.com/sala",
   },
   {
     id: 1,
-    titulo: 'Consulta Médica',
-    descricao: 'Consulta médica - check-up anual.',
-    data: new Date('2025-11-14T15:00:00'),
+    titulo: 'Consulta Medica',
+    descricao: 'Odonto',
+    data: new Date('2025-11-15T10:00:00'),
+    categoria: "Pessoal",
+    local: "consultorio doutor luiz",
+    link: "",
   },
   {
     id: 2,
-    titulo: 'Consulta Médica',
-    descricao: 'Consulta médica - check-up anual.',
-    data: new Date('2025-11-14T15:00:00'),
+    titulo: 'Academia',
+    descricao: '',
+    data: new Date('2025-11-21T10:00:00'),
+    categoria: "Pessoal",
+    local: "gavioes",
+    link: "",
   },
   {
     id: 3,
-    titulo: 'Consulta Médica',
-    descricao: 'Consulta médica - check-up anual.',
-    data: new Date('2025-11-14T15:00:00'),
+    titulo: 'Reunião A3',
+    descricao: 'Reunião para desenvolvimento do projeto A3',
+    data: new Date('2025-11-21T10:00:00'),
+    categoria: "Faculdade",
+    local: "",
+    link: "zoom.com/sala",
   },
   {
     id: 4,
-    titulo: 'Consulta Médica',
-    descricao: 'Consulta médica - check-up anual.',
-    data: new Date('2025-11-21T15:00:00'),
-  },
+    titulo: 'Jantar Romantico',
+    descricao: '',
+    data: new Date('2025-11-22T19:00:00'),
+    categoria: "Pessoal",
+    local: "Restaurante Chique",
+    link: "",
+  }
 ];
 
 let contadorId = 4;
@@ -37,6 +52,9 @@ function adicionarCompromisso(compromisso) {
   contadorId++;
   const compromissoComId = { ...compromisso, id: contadorId };
   compromissos.push(compromissoComId);
+
+  console.log(compromissos)
+
   return compromissoComId;
 }
 
