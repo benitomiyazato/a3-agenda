@@ -1,6 +1,5 @@
 import { useMemo, useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { Link } from "react-router-dom";
 
 import { listarCompromissos } from "../api/compromissos";
 import type { Compromisso } from "../tipos/compromissos";

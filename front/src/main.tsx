@@ -3,8 +3,10 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+
 import './index.css'
 import App from "./App";
+import CadastroCompromisso from "./components/CadastroCompromisso";
 // import CadastroCompromisso from "./components/CadastroCompromisso"; // cria este componente
 
 const root = ReactDOM.createRoot(document.getElementById("root")!);
@@ -14,7 +16,7 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />} />
-        {/* <Route path="/cadastro" element={<CadastroCompromisso />} /> */}
+        <Route path="/cadastroCompromisso" element={<CadastroCompromisso />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

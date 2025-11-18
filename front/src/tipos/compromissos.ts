@@ -3,4 +3,7 @@ export interface Compromisso {
   titulo: string;
   descricao: string;
   data: Date;
+  categoria: string;
+  local: string;
+  link: string;
 }
