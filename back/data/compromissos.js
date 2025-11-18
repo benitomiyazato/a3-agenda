@@ -58,8 +58,6 @@ function adicionarCompromisso(compromisso) {
   const compromissoComId = { ...compromisso, id: contadorId };
   compromissos.push(compromissoComId);
 
-  console.log(compromissos)
-
   return compromissoComId;
 }
 
@@ -75,9 +73,29 @@ function buscarCompromissoPorId(id) {
   return compromissos.find((c) => c.id === id);
 }
 
+function editarCompromisso(id, novosDados) {
+  const index = compromissos.findIndex((c) => c.id === id);
+
+  if (index === -1) {
+    return null; // não encontrado
+  }
+
+  // Atualiza apenas os campos enviados
+  compromissos[index] = {
+    ...compromissos[index],
+    ...novosDados,
+    id: compromissos[index].id, // garante que o id não seja alterado
+  };
+
+  return compromissos[index];
+}
+
+
+
 module.exports = {
   adicionarCompromisso,
   removerCompromisso,
   listarCompromissos,
   buscarCompromissoPorId,
+  editarCompromisso
 };

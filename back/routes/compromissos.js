@@ -4,6 +4,7 @@ const {
   getCompromisso,
   postCompromisso,
   deleteCompromisso,
+  putCompromisso
 } = require('../controllers/compromissos');
 
 const router = express.Router();
@@ -19,5 +20,7 @@ router.post('/', postCompromisso);
 
 /* REMOVER */
 router.delete('/:id', deleteCompromisso);
+
+router.put('/:id', putCompromisso);
 
 module.exports = router;

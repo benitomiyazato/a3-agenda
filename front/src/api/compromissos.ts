@@ -31,3 +31,17 @@ export const adicionarCompromisso = async (
 export const removerCompromisso = async (id: number) => {
   await axios.delete(`${API_URL}/${id}`);
 };
+
+/* EDITAR (PUT) */
+export const editarCompromisso = async (
+  id: number,
+  compromisso: Partial<Omit<Compromisso, 'id'>>
+) => {
+  const response = await axios.put(`${API_URL}/${id}`, {
+    ...compromisso,
+    dataInicio: compromisso.dataInicio?.toISOString(),
+    dataFim: compromisso.dataFim?.toISOString(),
+  });
+
+  return response.data as Compromisso;
+};

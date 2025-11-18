@@ -1,14 +1,17 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 
 import { listarCompromissos } from "../api/compromissos";
 import type { Compromisso } from "../tipos/compromissos";
 
 interface CompromissosProps {
-    dataSelecionada?: Date;
+  dataSelecionada?: Date;
 }
 
-export default function Compromissos({dataSelecionada = new Date()}: CompromissosProps) {
+export default function Compromissos({ dataSelecionada = new Date() }: CompromissosProps) {
   const [compromissos, setCompromissos] = useState<Compromisso[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     listarCompromissos()
@@ -39,58 +42,59 @@ export default function Compromissos({dataSelecionada = new Date()}: Compromisso
 
       <div className="flex-1 overflow-y-auto p-4 space-y-3 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent hover:scrollbar-thumb-gray-400">
         {compromissosDoDia.map((compromisso) => (
-  <div
-    key={compromisso.id}
-    className="w-full rounded-2xl border border-gray-200 bg-white shadow-sm p-4 hover:shadow-md transition cursor-pointer"
-  >
-    {/* Linha superior: Título + Categoria */}
-    <div className="flex items-start justify-between">
-      <h3 className="font-semibold text-blue-600">
-        {compromisso.titulo}
-      </h3>
+          <div
+            key={compromisso.id}
+            className="w-full rounded-2xl border border-gray-200 bg-white shadow-sm p-4 hover:shadow-md transition cursor-pointer"
+            onClick={() => navigate(`/updateCompromisso/${compromisso.id}`)}
+          >
+            {/* Linha superior: Título + Categoria */}
+            <div className="flex items-start justify-between">
+              <h3 className="font-semibold text-blue-600">
+                {compromisso.titulo}
+              </h3>
 
-      {compromisso.categoria && (
-        <span className="text-xs text-gray-400">
-          {compromisso.categoria}
-        </span>
-      )}
-    </div>
+              {compromisso.categoria && (
+                <span className="text-xs text-gray-400">
+                  {compromisso.categoria}
+                </span>
+              )}
+            </div>
 
-    {/* Descrição (se houver) */}
-    {compromisso.descricao && (
-      <p className="text-sm text-gray-600 mt-1">
-        {compromisso.descricao}
-      </p>
-    )}
+            {/* Descrição (se houver) */}
+            {compromisso.descricao && (
+              <p className="text-sm text-gray-600 mt-1">
+                {compromisso.descricao}
+              </p>
+            )}
 
-    {/* Data e hora no canto direito */}
-    <div className="flex justify-end mt-2 text-xs text-gray-500 gap-1 items-center">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        strokeWidth={1.5}
-        stroke="currentColor"
-        className="w-4 h-4"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M6.75 3v2.25M17.25 3v2.25M3 8.25h18M4.5 7.5v12a2.25 2.25 0 002.25 2.25h10.5A2.25 2.25 0 0019.5 19.5v-12m-15 0V19.5m0-12h15"
-        />
-      </svg>
+            {/* Data e hora no canto direito */}
+            <div className="flex justify-end mt-2 text-xs text-gray-500 gap-1 items-center">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-4 h-4"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M6.75 3v2.25M17.25 3v2.25M3 8.25h18M4.5 7.5v12a2.25 2.25 0 002.25 2.25h10.5A2.25 2.25 0 0019.5 19.5v-12m-15 0V19.5m0-12h15"
+                />
+              </svg>
 
-      {new Date(compromisso.dataInicio).toLocaleString("pt-BR", {
-        day: "2-digit",
-        month: "2-digit",
-        year: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
-        hour12: false
-      })}
-    </div>
-  </div>
-))}
+              {new Date(compromisso.dataInicio).toLocaleString("pt-BR", {
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric",
+                hour: "2-digit",
+                minute: "2-digit",
+                hour12: false
+              })}
+            </div>
+          </div>
+        ))}
 
       </div>
     </div>
