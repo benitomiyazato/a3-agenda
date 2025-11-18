@@ -4,7 +4,7 @@ import { adicionarCompromisso } from "../api/compromissos";
 import type { Compromisso } from "../tipos/compromissos";
 
 export default function CadastroCompromisso() {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const [titulo, setTitulo] = useState("");
   const [descricao, setDescricao] = useState("");
@@ -60,16 +60,16 @@ export default function CadastroCompromisso() {
     <div className="max-w-md mx-auto p-4">
       <div className="relative mb-4 h-10 flex items-center">
         <Link
-            to="/"
-            className="absolute left-0 px-3 py-1.5 rounded-xl bg-gray-100 hover:bg-gray-300 transition text-gray-700"
+          to="/"
+          className="absolute left-0 px-3 py-1.5 rounded-xl bg-gray-100 hover:bg-gray-300 transition text-gray-700"
         >
-            ←
+          ←
         </Link>
 
         <h1 className="w-full text-center text-2xl font-bold text-gray-800">
-            Novo Compromisso
+          Novo Compromisso
         </h1>
-        </div>
+      </div>
 
       {erro && (
         <div className="bg-red-100 text-red-700 p-2 mb-3 rounded">{erro}</div>

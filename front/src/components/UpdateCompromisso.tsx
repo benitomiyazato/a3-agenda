@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { buscarCompromissoPorId, editarCompromisso } from "../api/compromissos"; // Supondo que você tenha uma função de get
+import { buscarCompromissoPorId, editarCompromisso, removerCompromisso } from "../api/compromissos"; // Supondo que você tenha uma função de get
 import type { Compromisso } from "../tipos/compromissos";
 
 export default function UpdateCompromisso() {
@@ -66,7 +66,7 @@ export default function UpdateCompromisso() {
 
       if (id) {
         await editarCompromisso(Number(id), compromissoAtualizado);
-        navigate('/'); 
+        navigate('/');
       }
     } catch (err) {
       console.error(err);
@@ -74,20 +74,54 @@ export default function UpdateCompromisso() {
     }
   };
 
+  const handleDelete = async () => {
+    if (id && window.confirm("Tem certeza que deseja remover este compromisso?")) {
+      try {
+        await removerCompromisso(Number(id));
+        navigate("/");
+      } catch (err) {
+        console.error(err);
+        setErro("Erro ao remover compromisso.");
+      }
+    }
+  };
+
+
   return (
     <div className="max-w-md mx-auto p-4">
-      <div className="relative mb-4 h-10 flex items-center">
-        <Link
-          to="/"
-          className="absolute left-0 px-3 py-1.5 rounded-xl bg-gray-100 hover:bg-gray-300 transition text-gray-700"
-        >
-          ←
-        </Link>
+      <div className="relative mb-4 h-10 flex items-center justify-between">
+  <Link
+    to="/"
+    className="px-3 py-1.5 rounded-xl bg-gray-100 hover:bg-gray-300 transition text-gray-700"
+  >
+    ←
+  </Link>
 
-        <h1 className="w-full text-center text-2xl font-bold text-gray-800">
-          Compromisso
-        </h1>
-      </div>
+  <h1 className="w-full text-center text-2xl font-bold text-gray-800">
+    Compromisso
+  </h1>
+
+  {/* Botão de lixeira */}
+  <button
+    onClick={handleDelete}
+    className="px-3 py-1.5 rounded-xl bg-red-100 hover:bg-red-300 transition text-red-700"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth={1.5}
+      stroke="currentColor"
+      className="w-5 h-5"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M6 18L18 6M6 6l12 12"
+      />
+    </svg>
+  </button>
+</div>
 
       {erro && (
         <div className="bg-red-100 text-red-700 p-2 mb-3 rounded">{erro}</div>

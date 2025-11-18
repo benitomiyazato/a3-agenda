@@ -21,10 +21,10 @@ function useCalendario(date: Date, locale: string) {
         const fimDoMes = new Date(inicioMes.getFullYear(), inicioMes.getMonth() + 1, 0)
         const diasNoMes = fimDoMes.getDate()
 
-        const formatadorDiaDaSemana = new Intl.DateTimeFormat(locale, {weekday: 'short'})
+        const formatadorDiaDaSemana = new Intl.DateTimeFormat(locale, { weekday: 'short' })
 
-        const diasSemana = Array.from({length: 7}, (_,i)=> {
-            const base = new Date(2021, 7, i+1);
+        const diasSemana = Array.from({ length: 7 }, (_, i) => {
+            const base = new Date(2021, 7, i + 1);
             return formatadorDiaDaSemana.format(base);
         })
 
@@ -32,7 +32,7 @@ function useCalendario(date: Date, locale: string) {
 
         // dias do mês anterior
         const indexPrimeiroDia = inicioMes.getDay();
-        for (let i = indexPrimeiroDia; i>0; i--) {
+        for (let i = indexPrimeiroDia; i > 0; i--) {
             celulas.push({
                 data: new Date(ano, mes, 1 - i),
                 mesCorrente: false
@@ -47,10 +47,10 @@ function useCalendario(date: Date, locale: string) {
             })
         }
 
-       // dias do próximo mês
-       while(celulas.length < 42 /* 7 colunas * 6 linhas = 42 celulas totais */) {
+        // dias do próximo mês
+        while (celulas.length < 42 /* 7 colunas * 6 linhas = 42 celulas totais */) {
             const ultimo: Date = celulas[celulas.length - 1].data
-            const prox: Date= new Date(ultimo)
+            const prox: Date = new Date(ultimo)
             prox.setDate(prox.getDate() + 1)
 
             celulas.push({
@@ -58,7 +58,7 @@ function useCalendario(date: Date, locale: string) {
                 mesCorrente: false
             })
 
-       }
+        }
 
 
         const isHoje = (date: Date) => {
@@ -70,10 +70,10 @@ function useCalendario(date: Date, locale: string) {
         }
 
 
-        return {ano, mes, diasSemana, celulas, isHoje}
+        return { ano, mes, diasSemana, celulas, isHoje }
     }, [inicioMes])
 
-    return {...data, inicioMes, avancarMes, voltarMes}
+    return { ...data, inicioMes, avancarMes, voltarMes }
 }
 
 export default useCalendario;
