@@ -28,6 +28,11 @@ export default function CadastroCompromisso() {
       return;
     }
 
+    if (dataInicio > dataFim) {
+      setErro("A data de início não pode ser depois da data de fim.");
+      return;
+    }
+
     try {
       const novoCompromisso: Omit<Compromisso, "id"> = {
         titulo,
@@ -117,12 +122,24 @@ export default function CadastroCompromisso() {
 
         <div>
           <label className="block mb-1 font-medium">Categoria</label>
-          <input
-            type="text"
+          <select
             value={categoria}
             onChange={(e) => setCategoria(e.target.value)}
             className="w-full px-3 py-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400"
-          />
+          >
+            <option value="">Selecione uma categoria</option>
+            <option value="Trabalho">Trabalho</option>
+            <option value="Estudos">Estudos</option>
+            <option value="Saúde">Saúde</option>
+            <option value="Lazer">Lazer</option>
+            <option value="Família">Família</option>
+            <option value="Amigos">Amigos</option>
+            <option value="Financeiro">Financeiro</option>
+            <option value="Eventos">Eventos</option>
+            <option value="Compras">Compras</option>
+            <option value="Compras">Pessoal</option>
+            <option value="Outros">Outros</option>
+          </select>
         </div>
 
         <div>
