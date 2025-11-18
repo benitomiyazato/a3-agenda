@@ -3,6 +3,17 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { buscarCompromissoPorId, editarCompromisso, removerCompromisso } from "../api/compromissos"; // Supondo que você tenha uma função de get
 import type { Compromisso } from "../tipos/compromissos";
 
+const toDatetimeLocal = (date: Date) => {
+  const pad = (n: number) => n.toString().padStart(2, "0");
+  const year = date.getFullYear();
+  const month = pad(date.getMonth() + 1);
+  const day = pad(date.getDate());
+  const hours = pad(date.getHours());
+  const minutes = pad(date.getMinutes());
+  return `${year}-${month}-${day}T${hours}:${minutes}`;
+};
+
+
 export default function UpdateCompromisso() {
   const { id } = useParams<{ id: string }>(); // Pega o ID da URL
   const navigate = useNavigate();
@@ -22,11 +33,10 @@ export default function UpdateCompromisso() {
       try {
         if (id) {
           const compromisso = await buscarCompromissoPorId(Number(id)); // Buscar compromisso pelo ID
-          console.log(compromisso);
           setTitulo(compromisso.titulo);
           setDescricao(compromisso.descricao);
-          setDataInicio(new Date(compromisso.dataInicio).toISOString().slice(0, 16));
-          setDataFim(compromisso.dataFim ? new Date(compromisso.dataFim).toISOString().slice(0, 16) : "");
+          setDataInicio(compromisso.dataInicio ? toDatetimeLocal(new Date(compromisso.dataInicio)) : "");
+          setDataFim(compromisso.dataFim ? toDatetimeLocal(new Date(compromisso.dataFim)) : "");
           setCategoria(compromisso.categoria);
           setLocal(compromisso.local);
           setLink(compromisso.link);
@@ -90,38 +100,38 @@ export default function UpdateCompromisso() {
   return (
     <div className="max-w-md mx-auto p-4">
       <div className="relative mb-4 h-10 flex items-center justify-between">
-  <Link
-    to="/"
-    className="px-3 py-1.5 rounded-xl bg-gray-100 hover:bg-gray-300 transition text-gray-700"
-  >
-    ←
-  </Link>
+        <Link
+          to="/"
+          className="px-3 py-1.5 rounded-xl bg-gray-100 hover:bg-gray-300 transition text-gray-700"
+        >
+          ←
+        </Link>
 
-  <h1 className="w-full text-center text-2xl font-bold text-gray-800">
-    Compromisso
-  </h1>
+        <h1 className="w-full text-center text-2xl font-bold text-gray-800">
+          Compromisso
+        </h1>
 
-  {/* Botão de lixeira */}
-  <button
-    onClick={handleDelete}
-    className="px-3 py-1.5 rounded-xl bg-red-100 hover:bg-red-300 transition text-red-700"
-  >
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      strokeWidth={1.5}
-      stroke="currentColor"
-      className="w-5 h-5"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M6 18L18 6M6 6l12 12"
-      />
-    </svg>
-  </button>
-</div>
+        {/* Botão de lixeira */}
+        <button
+          onClick={handleDelete}
+          className="px-3 py-1.5 rounded-xl bg-red-100 hover:bg-red-300 transition text-red-700"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="w-5 h-5"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+      </div>
 
       {erro && (
         <div className="bg-red-100 text-red-700 p-2 mb-3 rounded">{erro}</div>
