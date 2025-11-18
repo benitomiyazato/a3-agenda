@@ -32,7 +32,8 @@ export default function CadastroCompromisso() {
       const novoCompromisso: Omit<Compromisso, "id"> = {
         titulo,
         descricao,
-        data: new Date(dataInicio),
+        dataInicio: new Date(dataInicio),
+        dataFim: new Date(dataFim),
         categoria,
         local,
         link,

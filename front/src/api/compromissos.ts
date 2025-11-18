@@ -21,7 +21,8 @@ export const adicionarCompromisso = async (
 ) => {
   const response = await axios.post(API_URL, {
     ...compromisso,
-    data: compromisso.data.toISOString(), // garante que a data esteja no formato JSON
+    dataInicio: compromisso.dataInicio.toISOString(), // garante que a data esteja no formato JSON
+    dataFim: compromisso.dataFim.toISOString(), // garante que a data esteja no formato JSON
   });
   return response.data as Compromisso;
 };

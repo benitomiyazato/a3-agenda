@@ -27,7 +27,7 @@ export default function Calendario({ locale = navigator.language, onDiaSeleciona
 
     function temCompromisso(data: Date): boolean {
         return compromissos.some(c => {
-            const dataC = new Date(c.data);
+            const dataC = new Date(c.dataInicio);
             return (
                 dataC.getDate() === data.getDate() &&
                 dataC.getMonth() === data.getMonth() &&
