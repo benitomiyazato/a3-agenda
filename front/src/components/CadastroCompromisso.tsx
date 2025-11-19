@@ -1,15 +1,30 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { adicionarCompromisso } from "../api/compromissos";
 import type { Compromisso } from "../tipos/compromissos";
 
+const toDatetimeLocal = (date: Date) => {
+  const pad = (n: number) => n.toString().padStart(2, "0");
+  const year = date.getFullYear();
+  const month = pad(date.getMonth() + 1);
+  const day = pad(date.getDate());
+  const hours = pad(date.getHours());
+  const minutes = pad(date.getMinutes());
+  return `${year}-${month}-${day}T${hours}:${minutes}`;
+};
+
 export default function CadastroCompromisso() {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const dataSelecionada = (location.state as { dataSelecionada?: Date })?.dataSelecionada;
+  const dataSelecionadaStr = dataSelecionada ? toDatetimeLocal(new Date(dataSelecionada)) : "";
+
 
   const [titulo, setTitulo] = useState("");
   const [descricao, setDescricao] = useState("");
-  const [dataInicio, setDataInicio] = useState("");
-  const [dataFim, setDataFim] = useState("");
+  const [dataInicio, setDataInicio] = useState(dataSelecionadaStr);
+  const [dataFim, setDataFim] = useState(dataSelecionadaStr);
   const [categoria, setCategoria] = useState("");
   const [local, setLocal] = useState("");
   const [link, setLink] = useState("");
