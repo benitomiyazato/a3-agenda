@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { listarCompromissos } from "../api/compromissos";
 import type { Compromisso } from "../tipos/compromissos";
 
-import useCalendario from "../useCalendario"
+import useCalendario from "../useCalendarioMensal"
 
 interface CalendarioProps {
     locale?: string;
@@ -12,7 +12,7 @@ interface CalendarioProps {
     dataSelecionada?: Date
 }
 
-export default function Calendario({ locale = navigator.language, onDiaSelecionado, dataSelecionada = new Date() }: CalendarioProps) {
+export default function CalendarioMensal({ locale = navigator.language, onDiaSelecionado, dataSelecionada = new Date() }: CalendarioProps) {
     const { ano, mes, diasSemana, celulas, inicioMes, avancarMes, voltarMes } = useCalendario(new Date(), locale);
     const [compromissos, setCompromissos] = useState<Compromisso[]>([]);
 

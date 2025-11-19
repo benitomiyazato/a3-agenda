@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { Link } from "react-router-dom";
 
-import Calendario from "./components/Calendario"
+import CalendarioMensal from "./components/CalendarioMensal"
 import Compromissos from "./components/Compromissos"
 
 function App() {
@@ -16,7 +16,7 @@ function App() {
             Agenda
           </h1>
           <div className="h-[70%] border-b border-gray-200 overflow-hidden">
-            <Calendario
+            <CalendarioMensal
               onDiaSelecionado={setDataSelecionada}
               dataSelecionada={dataSelecionada}
             />
