@@ -8,7 +8,7 @@ import useCalendario from "../useCalendarioMensal"
 
 interface CalendarioProps {
     locale?: string;
-    onDiaSelecionado?: (data: Date) => void // é o set do useState
+    onDiaSelecionado?: (data: Date) => void
     dataSelecionada?: Date
 }
 
@@ -21,7 +21,7 @@ export default function CalendarioMensal({ locale = navigator.language, onDiaSel
             .then((data) => setCompromissos(data))
             .catch((err) => {
                 console.error("Erro ao carregar compromissos:", err);
-                setCompromissos([]); // garante que nunca será undefined
+                setCompromissos([]);
             });
     }, []);
 
@@ -92,7 +92,7 @@ export default function CalendarioMensal({ locale = navigator.language, onDiaSel
                             const base = 'aspect-square relative flex items-center justify-center rounded-2xl select-none';
                             let tons = '';
                             if (celulaSelecionada) {
-                                tons = 'bg-blue-500/90 text-white'; // fundo azul + texto branco
+                                tons = 'bg-blue-500/90 text-white'; 
                             } else {
                                 tons = mesCorrente ? 'bg-white' : 'bg-gray-100 opacity-35';
                             }

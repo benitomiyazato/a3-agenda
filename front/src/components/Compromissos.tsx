@@ -18,7 +18,7 @@ export default function Compromissos({ dataSelecionada = new Date() }: Compromis
       .then((data) => setCompromissos(data))
       .catch((err) => {
         console.error("Erro ao carregar compromissos:", err);
-        setCompromissos([]); // garante que nunca será undefined
+        setCompromissos([]); 
       });
   }, []);
 
@@ -47,7 +47,6 @@ export default function Compromissos({ dataSelecionada = new Date() }: Compromis
             className="w-full rounded-2xl border border-gray-200 bg-white shadow-sm p-4 hover:shadow-md transition cursor-pointer"
             onClick={() => navigate(`/updateCompromisso/${compromisso.id}`)}
           >
-            {/* Linha superior: Título + Categoria */}
             <div className="flex items-start justify-between">
               <h3 className="font-semibold text-blue-600">
                 {compromisso.titulo}
@@ -60,14 +59,14 @@ export default function Compromissos({ dataSelecionada = new Date() }: Compromis
               )}
             </div>
 
-            {/* Descrição (se houver) */}
+
             {compromisso.descricao && (
               <p className="text-sm text-gray-600 mt-1">
                 {compromisso.descricao}
               </p>
             )}
 
-            {/* Data e hora no canto direito */}
+
             <div className="flex justify-end mt-2 text-xs text-gray-500 gap-1 items-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
