@@ -3,17 +3,25 @@ import { Link } from "react-router-dom";
 
 import CalendarioMensal from "./components/CalendarioMensal";
 import CalendarioSemanal from "./components/CalendarioSemanal";
-import Compromissos from "./components/Compromissos";
+import CompromissosMensal from "./components/CompromissosMensal";
 import HeaderAgenda from "./components/HeaderAgenda";
+import CompromissosSemanal from "./components/CompromissosSemanal";
 
 function App() {
   const [dataSelecionada, setDataSelecionada] = useState(new Date());
-  const [modo, setModo] = useState<"mensal" | "semanal">("mensal");
+  const [modo, setModo] = useState<"mensal" | "semanal">(
+    () => (localStorage.getItem("modoAgenda") as "mensal" | "semanal") || "mensal"
+  );
+
 
   const alternarModo = () => {
-    setModo((prev) => (prev === "mensal" ? "semanal" : "mensal"));
+    setModo((prev) => {
+      const novo = prev === "mensal" ? "semanal" : "mensal";
+      localStorage.setItem("modoAgenda", novo);
+      return novo;
+    });
   };
-
+  
   return (
     <div className="max-w-md mx-auto">
       <div className="h-screen flex flex-col">
@@ -29,16 +37,21 @@ function App() {
                 />
               </div>
               <div className="flex-1 overflow-y-auto">
-                <Compromissos dataSelecionada={dataSelecionada} />
+                <CompromissosMensal dataSelecionada={dataSelecionada} />
               </div>
             </>
           ) : (
-            <div className="border-b border-gray-200">
-              <CalendarioSemanal
-                onDiaSelecionado={setDataSelecionada}
-                dataSelecionada={dataSelecionada}
-              />
-            </div>
+            <>
+              <div className="border-b border-gray-200">
+                <CalendarioSemanal
+                  onDiaSelecionado={setDataSelecionada}
+                  dataSelecionada={dataSelecionada}
+                />
+              </div>
+              <div className="flex-1 overflow-y-auto">
+                <CompromissosSemanal dataSelecionada={dataSelecionada} />
+              </div>
+            </>
           )}
         </div>
 

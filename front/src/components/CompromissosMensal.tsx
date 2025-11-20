@@ -9,7 +9,7 @@ interface CompromissosProps {
   dataSelecionada?: Date;
 }
 
-export default function Compromissos({ dataSelecionada = new Date() }: CompromissosProps) {
+export default function CompromissosMensal({ dataSelecionada = new Date() }: CompromissosProps) {
   const [compromissos, setCompromissos] = useState<Compromisso[]>([]);
   const navigate = useNavigate();
 
@@ -18,7 +18,7 @@ export default function Compromissos({ dataSelecionada = new Date() }: Compromis
       .then((data) => setCompromissos(data))
       .catch((err) => {
         console.error("Erro ao carregar compromissos:", err);
-        setCompromissos([]); 
+        setCompromissos([]);
       });
   }, []);
 
@@ -83,14 +83,10 @@ export default function Compromissos({ dataSelecionada = new Date() }: Compromis
                 />
               </svg>
 
-              {new Date(compromisso.dataInicio).toLocaleString("pt-BR", {
-                day: "2-digit",
-                month: "2-digit",
-                year: "numeric",
-                hour: "2-digit",
-                minute: "2-digit",
-                hour12: false
-              })}
+              {`${new Date(compromisso.dataInicio).toLocaleDateString("pt-BR")} 
+              ${new Date(compromisso.dataInicio).toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit", hour12: false })} - 
+              ${new Date(compromisso.dataFim).toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit", hour12: false })}`}
+
             </div>
           </div>
         ))}
