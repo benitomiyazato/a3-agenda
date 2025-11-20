@@ -49,7 +49,7 @@ export default function CalendarioMensal({ locale = navigator.language, onDiaSel
                     className="px-3 py-2 rounded-2xl border border-gray-50 text-sm hover:bg-gray-100 transition"
                     onClick={voltarMes}
                 >
-                    ← Anterior
+                    ←
                 </button>
 
                 <div className="text-lg font-semibold select-none">
@@ -60,7 +60,7 @@ export default function CalendarioMensal({ locale = navigator.language, onDiaSel
                     className="px-3 py-2 rounded-2xl border border-gray-50 text-sm hover:bg-gray-100 transition"
                     onClick={avancarMes}
                 >
-                    Próximo →
+                    →
                 </button>
             </div>
 

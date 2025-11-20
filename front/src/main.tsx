@@ -8,6 +8,7 @@ import './index.css'
 import App from "./App";
 import CadastroCompromisso from "./components/CadastroCompromisso";
 import UpdateCompromisso from "./components/UpdateCompromisso";
+import CalendarioSemanal from "./components/CalendarioSemanal";
 // import CadastroCompromisso from "./components/CadastroCompromisso"; // cria este componente
 
 const root = ReactDOM.createRoot(document.getElementById("root")!);
@@ -19,6 +20,7 @@ root.render(
         <Route path="/" element={<App />} />
         <Route path="/cadastroCompromisso" element={<CadastroCompromisso />} />
         <Route path="/updateCompromisso/:id" element={<UpdateCompromisso />} />
+        <Route path="/semanal" element={<CalendarioSemanal />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
