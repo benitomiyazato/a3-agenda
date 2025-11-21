@@ -9,16 +9,21 @@ import useCalendarioSemanal from "../useCalendarioSemanal";
 interface Props {
     locale?: string;
     dataSelecionada?: Date;
+    semanaSelecionada?: Date;
     onDiaSelecionado?: (data: Date) => void;
+    onSemanaSelecionada?: (data: Date) => void;
+
 }
 
 export default function CalendarioSemanal({
     locale = navigator.language,
     dataSelecionada = new Date(),
+    semanaSelecionada = new Date(),
     onDiaSelecionado,
+    onSemanaSelecionada
 }: Props) {
     const { diasSemana, semana, inicioSemana, avancarSemana, voltarSemana } =
-        useCalendarioSemanal(new Date(), locale);
+        useCalendarioSemanal(semanaSelecionada, locale);
 
     const [compromissos, setCompromissos] = useState<Compromisso[]>([]);
 
@@ -53,7 +58,10 @@ export default function CalendarioSemanal({
             <div className="flex items-center justify-between mb-3">
                 <button
                     className="px-3 py-2 rounded-2xl border border-gray-50 text-sm hover:bg-gray-100 transition"
-                    onClick={voltarSemana}
+                    onClick={()=> {
+                        const nova = voltarSemana()
+                        onSemanaSelecionada?.(nova)
+                    }}
                 >
                     ←
                 </button>
@@ -66,7 +74,10 @@ export default function CalendarioSemanal({
 
                 <button
                     className="px-3 py-2 rounded-2xl border border-gray-50 text-sm hover:bg-gray-100 transition"
-                    onClick={avancarSemana}
+                    onClick={() => {
+                        const nova = avancarSemana();
+                        onSemanaSelecionada?.(nova);
+                    }}
                 >
                     →
                 </button>

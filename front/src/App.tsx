@@ -9,10 +9,12 @@ import CompromissosSemanal from "./components/CompromissosSemanal";
 
 function App() {
   const [dataSelecionada, setDataSelecionada] = useState(new Date());
-  const [modo, setModo] = useState<"mensal" | "semanal">(
-    () => (localStorage.getItem("modoAgenda") as "mensal" | "semanal") || "mensal"
-  );
+  const [semanaSelecionada, setSemanaSelecionada] = useState(new Date());
 
+  const [modo, setModo] = useState<"mensal" | "semanal">(
+    () =>
+      (localStorage.getItem("modoAgenda") as "mensal" | "semanal") || "mensal"
+  );
 
   const alternarModo = () => {
     setModo((prev) => {
@@ -21,7 +23,7 @@ function App() {
       return novo;
     });
   };
-  
+
   return (
     <div className="max-w-md mx-auto">
       <div className="h-screen flex flex-col">
@@ -46,15 +48,16 @@ function App() {
                 <CalendarioSemanal
                   onDiaSelecionado={setDataSelecionada}
                   dataSelecionada={dataSelecionada}
+                  semanaSelecionada={semanaSelecionada}
+                  onSemanaSelecionada={setSemanaSelecionada}
                 />
               </div>
               <div className="flex-1 overflow-y-auto">
-                <CompromissosSemanal dataSelecionada={dataSelecionada} />
+                <CompromissosSemanal semanaSelecionada={semanaSelecionada} />
               </div>
             </>
           )}
         </div>
-
 
         <div className="w-full my-3 h-[5%] px-2">
           <Link

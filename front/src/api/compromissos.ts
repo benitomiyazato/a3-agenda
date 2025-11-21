@@ -1,7 +1,7 @@
-import axios from 'axios';
-import type { Compromisso } from '../tipos/compromissos';
+import axios from "axios";
+import type { Compromisso } from "../tipos/compromissos";
 
-const API_URL = 'http://localhost:3000/compromissos';
+const API_URL = "http://localhost:3000/compromissos";
 
 /* LISTAR TODOS */
 export const listarCompromissos = async () => {
@@ -17,12 +17,12 @@ export const buscarCompromissoPorId = async (id: number) => {
 
 /* ADICIONAR (POST) */
 export const adicionarCompromisso = async (
-  compromisso: Omit<Compromisso, 'id'>
+  compromisso: Omit<Compromisso, "id">
 ) => {
   const response = await axios.post(API_URL, {
     ...compromisso,
-    dataInicio: compromisso.dataInicio.toISOString(), // garante que a data esteja no formato JSON
-    dataFim: compromisso.dataFim.toISOString(), // garante que a data esteja no formato JSON
+    dataInicio: compromisso.dataInicio.toISOString(),
+    dataFim: compromisso.dataFim.toISOString(),
   });
   return response.data as Compromisso;
 };
@@ -35,7 +35,7 @@ export const removerCompromisso = async (id: number) => {
 /* EDITAR (PUT) */
 export const editarCompromisso = async (
   id: number,
-  compromisso: Partial<Omit<Compromisso, 'id'>>
+  compromisso: Partial<Omit<Compromisso, "id">>
 ) => {
   const response = await axios.put(`${API_URL}/${id}`, {
     ...compromisso,

@@ -1,6 +1,10 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { buscarCompromissoPorId, editarCompromisso, removerCompromisso } from "../api/compromissos"; // Supondo que você tenha uma função de get
+import {
+  buscarCompromissoPorId,
+  editarCompromisso,
+  removerCompromisso,
+} from "../api/compromissos";
 import type { Compromisso } from "../tipos/compromissos";
 
 const toDatetimeLocal = (date: Date) => {
@@ -13,9 +17,8 @@ const toDatetimeLocal = (date: Date) => {
   return `${year}-${month}-${day}T${hours}:${minutes}`;
 };
 
-
 export default function UpdateCompromisso() {
-  const { id } = useParams<{ id: string }>(); // Pega o ID da URL
+  const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
   const [titulo, setTitulo] = useState("");
@@ -28,15 +31,22 @@ export default function UpdateCompromisso() {
   const [erro, setErro] = useState("");
 
   useEffect(() => {
-    // Carregar os dados do compromisso quando o componente for montado
     const loadCompromisso = async () => {
       try {
         if (id) {
-          const compromisso = await buscarCompromissoPorId(Number(id)); // Buscar compromisso pelo ID
+          const compromisso = await buscarCompromissoPorId(Number(id));
           setTitulo(compromisso.titulo);
           setDescricao(compromisso.descricao);
-          setDataInicio(compromisso.dataInicio ? toDatetimeLocal(new Date(compromisso.dataInicio)) : "");
-          setDataFim(compromisso.dataFim ? toDatetimeLocal(new Date(compromisso.dataFim)) : "");
+          setDataInicio(
+            compromisso.dataInicio
+              ? toDatetimeLocal(new Date(compromisso.dataInicio))
+              : ""
+          );
+          setDataFim(
+            compromisso.dataFim
+              ? toDatetimeLocal(new Date(compromisso.dataFim))
+              : ""
+          );
           setCategoria(compromisso.categoria);
           setLocal(compromisso.local);
           setLink(compromisso.link);
@@ -81,7 +91,7 @@ export default function UpdateCompromisso() {
 
       if (id) {
         await editarCompromisso(Number(id), compromissoAtualizado);
-        navigate('/');
+        navigate("/");
       }
     } catch (err) {
       console.error(err);
@@ -90,7 +100,10 @@ export default function UpdateCompromisso() {
   };
 
   const handleDelete = async () => {
-    if (id && window.confirm("Tem certeza que deseja remover este compromisso?")) {
+    if (
+      id &&
+      window.confirm("Tem certeza que deseja remover este compromisso?")
+    ) {
       try {
         await removerCompromisso(Number(id));
         navigate("/");
@@ -100,7 +113,6 @@ export default function UpdateCompromisso() {
       }
     }
   };
-
 
   return (
     <div className="max-w-md mx-auto p-4">
@@ -116,7 +128,6 @@ export default function UpdateCompromisso() {
           Compromisso
         </h1>
 
-        {/* Botão de lixeira */}
         <button
           onClick={handleDelete}
           className="px-3 py-1.5 rounded-xl bg-red-100 hover:bg-red-300 transition text-red-700"

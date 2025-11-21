@@ -17,9 +17,11 @@ export default function CadastroCompromisso() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const dataSelecionada = (location.state as { dataSelecionada?: Date })?.dataSelecionada;
-  const dataSelecionadaStr = dataSelecionada ? toDatetimeLocal(new Date(dataSelecionada)) : "";
-
+  const dataSelecionada = (location.state as { dataSelecionada?: Date })
+    ?.dataSelecionada;
+  const dataSelecionadaStr = dataSelecionada
+    ? toDatetimeLocal(new Date(dataSelecionada))
+    : "";
 
   const [titulo, setTitulo] = useState("");
   const [descricao, setDescricao] = useState("");

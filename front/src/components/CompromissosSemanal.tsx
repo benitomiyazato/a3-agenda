@@ -5,12 +5,12 @@ import { listarCompromissos } from "../api/compromissos";
 import type { Compromisso } from "../tipos/compromissos";
 
 interface CompromissosSemanalProps {
-    dataSelecionada?: Date;
+    semanaSelecionada?: Date;
     locale?: string;
 }
 
 export default function CompromissosSemanal({
-    dataSelecionada = new Date(),
+    semanaSelecionada = new Date(),
     locale = "pt-BR",
 }: CompromissosSemanalProps) {
     const [compromissos, setCompromissos] = useState<Compromisso[]>([]);
@@ -25,8 +25,9 @@ export default function CompromissosSemanal({
             });
     }, []);
 
-    const domingo = new Date(dataSelecionada);
-    domingo.setDate(dataSelecionada.getDate() - dataSelecionada.getDay());
+    const domingo = new Date(semanaSelecionada);
+    domingo.setDate(semanaSelecionada.getDate() - semanaSelecionada.getDay());
+
 
     const semana = Array.from({ length: 7 }, (_, i) => {
         const dia = new Date(domingo);
