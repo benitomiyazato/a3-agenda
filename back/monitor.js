@@ -76,8 +76,8 @@ function enviarEmail(comp) {
   });
 }
 
-
+console.log("Monitor de compromissos iniciado…");
 verificarCompromissos();
 setInterval(verificarCompromissos, 60 * 1000);
 
-console.log("Monitor de compromissos iniciado…");
+
