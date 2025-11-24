@@ -229,10 +229,21 @@ let compromissos = [
     local: "Casa",
     link: "",
     notificado: false
+  },
+  {
+    id: 26,
+    titulo: "Teste Notificação",
+    descricao: "Testando notificações",
+    dataInicio: new Date("2025-11-24T19:50:00"),
+    dataFim: new Date("2025-11-24T20:00:00"),
+    categoria: "Lazer",
+    local: "Casa",
+    link: "",
+    notificado: false
   }
 ];
 
-let contadorId = 25;
+let contadorId = 26;
 
 function adicionarCompromisso(compromisso) {
   contadorId++;
