@@ -1,5 +1,10 @@
 const express = require('express');
 const cors = require('cors');
+
+require("dotenv").config();
+require("./monitor");
+
+
 const compromissosRoutes = require('./routes/compromissos');
 
 const app = express();
