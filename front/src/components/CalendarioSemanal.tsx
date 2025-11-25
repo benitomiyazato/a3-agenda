@@ -54,7 +54,6 @@ export default function CalendarioSemanal({
 
     return (
         <div className="w-full min-w-[200px] p-4">
-            {/* Header — mesmo do CalendarioMensal */}
             <div className="flex items-center justify-between mb-3">
                 <button
                     className="px-3 py-2 rounded-2xl border border-gray-50 text-sm hover:bg-gray-100 transition"
@@ -83,9 +82,7 @@ export default function CalendarioSemanal({
                 </button>
             </div>
 
-            {/* Grade dos dias — ocupa o mesmo espaço visual do título do CalendarioMensal */}
             <div className="flex flex-col gap-1 mt-1">
-                {/* Nomes dos dias */}
                 <div className="grid grid-cols-7 gap-1 text-xs text-gray-500 mb-1">
                     {diasSemana.map((nome) => (
                         <div key={nome} className="text-center font-medium">
